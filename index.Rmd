@@ -1,28 +1,53 @@
 ---
-title: "index"
-output: html_document
+title: "Análisis bibliométrico de publicaciones de Scopus sobre coronavirus"
+knit: (function(inputFile, encoding) { 
+         rmarkdown::render(inputFile,
+                           encoding=encoding, 
+                           output_file=file.path(dirname(inputFile), 'docs', 'index.html')) })
+output: 
+  html_document:
+    toc: true
+    toc_float:
+       collapsed: false
+       smooth_scroll: false
+  github_document: default
 ---
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+  knitr::opts_chunk$set(
+  	echo = FALSE,
+  	message = FALSE,
+  	warning = FALSE
+  )
+
+library(bibliometrix)
+  
+
+#################
+# Importar datos
+#################
+  
+## Publicaciones de Scopus
+{
+  publicaciones <- read.csv("./data/scopus_coronavirus_2020.csv")
+
+## Análisis descriptivo
+
+  results <- biblioAnalysis(M, sep = ";")
+  options(width=100)
+  S <- summary(object = results, k = 10, pause = FALSE)
+  plot(x = results, k = 10, pause = FALSE)
+}
+ 
+
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
+> Estudio de publicaciones científicas de Scopus que contienen la keyword Coronavirus (publicadas en 2020) realizado por el Grupo de Investigación en Bases de Datos - UTN - FRCU 
+> <http://www.frcu.utn.edu.ar/gibd>
+>
+> gibd@frcu.utn.edu.ar
 
 ## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
