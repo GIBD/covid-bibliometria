@@ -26,13 +26,14 @@ library(bibliometrix)
 # Importar datos
 #################
   
-## Publicaciones de Scopus
+### Publicaciones de Scopus
 {
   publicaciones <- read.csv("./data/scopus_coronavirus_2020.csv")
+}
 
 ## Análisis descriptivo
-
-  results <- biblioAnalysis(M, sep = ";")
+{
+  results <- biblioAnalysis(publicaciones, sep = ";")
   options(width=100)
   S <- summary(object = results, k = 10, pause = FALSE)
   plot(x = results, k = 10, pause = FALSE)
