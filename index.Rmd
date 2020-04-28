@@ -8,46 +8,55 @@ output:
   html_document:
     toc: true
     toc_float:
-       collapsed: false
+       collapsed: true 
        smooth_scroll: false
   github_document: default
+runtime: shiny
 ---
+
 ```{r setup, include=FALSE}
   knitr::opts_chunk$set(
+    # cache = TRUE,
   	echo = FALSE,
   	message = FALSE,
   	warning = FALSE
   )
+```
 
+```{r importar, message=FALSE, warning=FALSE, include=FALSE}
 library(bibliometrix)
-  
+
+
 
 #################
-# Importar datos
+# Carga de datos
 #################
   
 ### Publicaciones de Scopus
 {
-  publicaciones <- read.csv("./data/scopus_coronavirus_2020.csv")
+  p <- readFiles("./data/sars_cov_2.bib")
+  publicaciones <- convert2df(p, dbsource = "scopus", format = "bibtex")
+  # descriptive analysis of the bibliographic data frame
 }
 
-## Análisis descriptivo
-{
-  results <- biblioAnalysis(publicaciones, sep = ";")
-  options(width=100)
-  S <- summary(object = results, k = 10, pause = FALSE)
-  plot(x = results, k = 10, pause = FALSE)
-}
- 
+# descriptive analysis of the bibliographic data frame
+results <- biblioAnalysis(publicaciones, sep = ";")
 
 ```
 
-> Estudio de publicaciones científicas de Scopus que contienen la keyword Coronavirus (publicadas en 2020) realizado por el Grupo de Investigación en Bases de Datos - UTN - FRCU 
+
+
+> Estudio de publicaciones científicas de Scopus que contienen la keyword "sars cov 2" (año 2020) realizado por el Grupo de Investigación en Bases de Datos - UTN - FRCU 
 > <http://www.frcu.utn.edu.ar/gibd>
 >
 > gibd@frcu.utn.edu.ar
 
-## Including Plots
+# Publicaciones Scopus
+## Estadística descriptiva
+
+Detalle del conjunto de datos resultante de la consulta a la Biblioteca Electrónica Scopus de publicaciones en inglés que contienen la palabra clave SARS-CoV-2. 
+
+
 
 
 
