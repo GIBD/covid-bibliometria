@@ -1,5 +1,5 @@
 ---
-title: "Análisis bibliométrico de publicaciones de Scopus sobre coronavirus"
+title: "Análisis bibliométrico de publicaciones de Scopus sobre COVID-19"
 knit: (function(inputFile, encoding) { 
          rmarkdown::render(inputFile,
                            encoding=encoding, 
@@ -65,13 +65,13 @@ doc_types <- tail(main_info, n=9)
 
 
 
-> Estudio de publicaciones científicas de Scopus que contienen la keyword "sars cov 2" (año 2020) realizado por el Grupo de Investigación en Bases de Datos - UTN - FRCU 
+> Análisis bibliométrico de publicaciones científicas de Scopus que contienen como palabra clave 'sars cov 2' del año 2020 realizado por el Grupo de Investigación en Bases de Datos - UTN - FRCU 
 > <http://www.frcu.utn.edu.ar/gibd>
 >
 > gibd@frcu.utn.edu.ar
 
-# Publicaciones Scopus
-## Estadística descriptiva
+
+### Estadística descriptiva
 
 Detalle del conjunto de datos resultante de la consulta a la Biblioteca Electrónica Scopus de publicaciones en inglés que contienen la palabra clave SARS-CoV-2. En la actual consulta se recuperaron `r  cant_articulos` artículos.
 
