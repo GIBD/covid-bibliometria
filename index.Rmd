@@ -25,7 +25,18 @@ runtime: shiny
 
 ```{r importar, message=FALSE, warning=FALSE, include=FALSE}
 library(bibliometrix)
-
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(rjson)
+library(plotly)
+library(gganimate)
+library(stringr)
+library(data.table)
 
 
 #################
@@ -40,8 +51,16 @@ library(bibliometrix)
 }
 
 # descriptive analysis of the bibliographic data frame
-results <- biblioAnalysis(publicaciones, sep = ";")
+descriptiva <- biblioAnalysis(publicaciones, sep = ";")
+cant_articulos<- descriptiva$Articles
 
+
+# resumen
+resumen <- summary(object = descriptiva, k = 10, pause = FALSE)
+
+main_info <- resumen$MainInformationDF
+main_info15 <- head(main_info, n=15)
+doc_types <- tail(main_info, n=9)
 ```
 
 
@@ -54,10 +73,24 @@ results <- biblioAnalysis(publicaciones, sep = ";")
 # Publicaciones Scopus
 ## Estadística descriptiva
 
-Detalle del conjunto de datos resultante de la consulta a la Biblioteca Electrónica Scopus de publicaciones en inglés que contienen la palabra clave SARS-CoV-2. 
+Detalle del conjunto de datos resultante de la consulta a la Biblioteca Electrónica Scopus de publicaciones en inglés que contienen la palabra clave SARS-CoV-2. En la actual consulta se recuperaron `r  cant_articulos` artículos.
 
 
+### Tabla Datos {.tabset .tabset-fade .tabset-pills}
+
+#### General
+Tabla de datos principales del dataset
+```{r main_info15, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width='100%'}
+      main_info15 %>% kable( col.names =  c("Descripción", "Resultados"), align =  c('l', 'c') ) %>% 
+      kable_styling()
+
+```
 
 
+#### Tipos de documentos
 
+```{r doc_types, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width='100%'}
+      doc_types %>% kable( col.names =  c("Descripción", "Resultados"), align =  c('l', 'c') ) %>% 
+      kable_styling()
 
+```
