@@ -50,17 +50,26 @@ library(data.table)
   # descriptive analysis of the bibliographic data frame
 }
 
-# descriptive analysis of the bibliographic data frame
+# Análisis descriptivo del df
 descriptiva <- biblioAnalysis(publicaciones, sep = ";")
 cant_articulos<- descriptiva$Articles
 
 
-# resumen
+# Resumen
 resumen <- summary(object = descriptiva, k = 10, pause = FALSE)
-
 main_info <- resumen$MainInformationDF
 main_info15 <- head(main_info, n=15)
 doc_types <- tail(main_info, n=9)
+
+
+### bibliographic networks from a bibliographic data frame
+collab_co <- biblioNetwork(publicaciones, analysis = "collaboration", network = "countries", sep = ";", shortlabel = TRUE)
+
+###analysis of the authors’ dominance ranking
+autores10 <- dominance(descriptiva, k = 10)
+
+
+
 ```
 
 
@@ -76,7 +85,7 @@ doc_types <- tail(main_info, n=9)
 Detalle del conjunto de datos resultante de la consulta a la Biblioteca Electrónica Scopus de publicaciones en inglés que contienen la palabra clave SARS-CoV-2. En la actual consulta se recuperaron `r  cant_articulos` artículos.
 
 
-### Tabla Datos {.tabset .tabset-fade .tabset-pills}
+### Tabla de Datos {.tabset .tabset-fade .tabset-pills}
 
 #### General
 Tabla de datos principales del dataset
@@ -91,6 +100,15 @@ Tabla de datos principales del dataset
 
 ```{r doc_types, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width='100%'}
       doc_types %>% kable( col.names =  c("Descripción", "Resultados"), align =  c('l', 'c') ) %>% 
+      kable_styling()
+
+```
+
+### Ranking de autores {.tabset .tabset-fade .tabset-pills}
+Listado de los 10 autores principales de los artículos recuperados.
+En la tabla se presentan los siguientes atributos: Nombre del autor (Autor), Factor de dominancia (DF), Cantidad total de artículos (TAA), Cantidad de artículos de único autor (SAA), Cantidad de artículos de múltiples autores (MAA), Cantidad de artículos en los que es primer autor (FAA), Ranking del autor según cantidad de artículos publicados (ARA), Ranking del autor según Factor de Dominancia (ARDF).
+```{r autores10, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width='100%'}
+      autores10 %>% kable( col.names =  c("Autor", "DF","TAA","SAA","MAA","FAA","ARA","ARDF"), align =  c('l', 'c','c','c','c','c','c','c') ) %>% 
       kable_styling()
 
 ```
